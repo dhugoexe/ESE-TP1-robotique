@@ -25,13 +25,30 @@ int getMinValue(int tab[]) {
     return minValue;
 }
 
-int getIndex(int value, int tab[]) {
+int getIndex(const int value, int tab[]) {
     int i = 0;
     while (tab[i] != value) {
         i++;
     }
     return i;
+}
 
+void sortTab(int tab[]) {
+    int sortedTab[TAB_SIZE];
+    int currentMin;
+    int currentIndex;
+
+    for (int i = 0; i < TAB_SIZE; i++) {
+        currentMin = getMinValue(tab);
+        currentIndex = getIndex(currentMin, tab);
+        sortedTab[i] = currentMin;
+        tab[currentIndex] = 101;
+    }
+
+    for (int i = 0; i < TAB_SIZE; i++) {
+        tab[i] = sortedTab[i];
+        printf("%i \n", tab[i]);
+    }
 }
 
 int main(void) {
@@ -46,5 +63,6 @@ int main(void) {
     }
     printf("The max value is %i (index: %i) and the min value is %i (index: %i) \n", getMaxValue(tab), getIndex(getMaxValue(tab), tab), getMinValue(tab), getIndex(getMinValue(tab), tab));
 
+    sortTab(tab);
     return 0;
 }
