@@ -2,67 +2,34 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "functions.h"
 
-#define TAB_SIZE 10
 
-int getMaxValue(int tab[]) {
-    int maxValue = tab[0];
+int variable; // variable globale : segment de données aussi
+static int variable_static; // variable globale statique : segment de données
 
-    for (int i = 0; i < TAB_SIZE; i++)
-        if (tab[i] > maxValue) {
-            maxValue = tab[i];
-        }
-        return maxValue;
-}
+int main (void) {
+    int a;
+    int * p;
+    /* Parmi les deux lignes suivantes, laquelle est la bonne? Pourquoi?
+    * Commentez la ligne fausse.
+    */
+    // *p = a; FAUX car elle essaie d'assigner une valeur à une adresse non initialisée
+    p = &a;
+    /* Que représente &p? Que représente p? Et *p? */
 
-int getMinValue(int tab[]) {
-    int minValue = tab[0];
+    // &p correspond à l'adresse mémoire de p
+    // p correspond à la valeur stockée dans p (qui est l'adresse de a)
+    // *p correspond à la valeur à l'adresse mémoire pointée par p
 
-    for (int i = 0; i < TAB_SIZE; i++)
-        if (tab[i] < minValue) {
-            minValue = tab[i];
-        }
-    return minValue;
-}
-
-int getIndex(const int value, int tab[]) {
-    int i = 0;
-    while (tab[i] != value) {
-        i++;
-    }
-    return i;
-}
-
-void sortTab(int tab[]) {
-    int sortedTab[TAB_SIZE];
-    int currentMin;
-    int currentIndex;
-
-    for (int i = 0; i < TAB_SIZE; i++) {
-        currentMin = getMinValue(tab);
-        currentIndex = getIndex(currentMin, tab);
-        sortedTab[i] = currentMin;
-        tab[currentIndex] = 101;
-    }
-
-    for (int i = 0; i < TAB_SIZE; i++) {
-        tab[i] = sortedTab[i];
-        printf("%i \n", tab[i]);
-    }
-}
-
-int main(void) {
-
-    srand(time(NULL));
-
-    int tab[TAB_SIZE];
-
-    for (int i=0;i<TAB_SIZE; i++) {
-        tab[i] = (rand() % 99) + 1;
-        printf("%i \n", tab[i]);
-    }
-    printf("The max value is %i (index: %i) and the min value is %i (index: %i) \n", getMaxValue(tab), getIndex(getMaxValue(tab), tab), getMinValue(tab), getIndex(getMinValue(tab), tab));
-
-    sortTab(tab);
+    /* Expliquer le comportement des lignes suivantes */
+    printf("%d %d\n", a, *p); // a et p ne sont pas initialisée, retourne donc la valeur de l'adresse pointée
+    *p = 5;
+    printf("%d %d\n", a, *p); // on attribue la valeur 5 à l'objet pointé, donc a=5, vu que p est à poiteur à l'adresse de a.
+    a = 12;
+    printf("%d %d\n", a, *p); // on attribue la valeur 12 à a, donc *p = a = 12
+    /* Faites vérifier par l'encadrant */
     return 0;
 }
+
+
