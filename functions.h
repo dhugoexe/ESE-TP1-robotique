@@ -10,6 +10,8 @@
 #endif //FUNCTIONS_H
 
 
+extern int tabSize;
+
 int getMaxValue(int tab[]);
 
 int getMinValue(int tab[]);

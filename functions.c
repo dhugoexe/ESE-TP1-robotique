@@ -7,10 +7,12 @@
 #include <stdio.h>
 
 
+extern int tabSize;
+
 int getMaxValue(int tab[]) {
     int maxValue = tab[0];
 
-    for (int i = 0; i < TAB_SIZE; i++)
+    for (int i = 0; i < tabSize; i++)
         if (tab[i] > maxValue) {
             maxValue = tab[i];
         }
@@ -20,7 +22,7 @@ int getMaxValue(int tab[]) {
 int getMinValue(int tab[]) {
     int minValue = tab[0];
 
-    for (int i = 0; i < TAB_SIZE; i++)
+    for (int i = 0; i < tabSize; i++)
         if (tab[i] < minValue) {
             minValue = tab[i];
         }
@@ -36,18 +38,18 @@ int getIndex(const int value, int tab[]) {
 }
 
 void sortTab(int tab[]) {
-    int sortedTab[TAB_SIZE];
+    int sortedTab[tabSize];
     int currentMin;
     int currentIndex;
 
-    for (int i = 0; i < TAB_SIZE; i++) {
+    for (int i = 0; i < tabSize; i++) {
         currentMin = getMinValue(tab);
         currentIndex = getIndex(currentMin, tab);
         sortedTab[i] = currentMin;
         tab[currentIndex] = 101;
     }
 
-    for (int i = 0; i < TAB_SIZE; i++) {
+    for (int i = 0; i < tabSize; i++) {
         tab[i] = sortedTab[i];
         printf("%i \n", tab[i]);
     }
